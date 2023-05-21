@@ -19,7 +19,7 @@ namespace Game.GameLoop
             ConstructGraph(stateMachine);
         }
 
-        private void ConstructGraph(StateMachine stateMachine1)
+        private void ConstructGraph(StateMachine stateMachine)
         {
             var graphConstructor = new StateMachineGraphConstructor(stateMachine);
             
@@ -30,7 +30,7 @@ namespace Game.GameLoop
 
             graphConstructor.InitialState(bootingState);
             
-            graphConstructor.AddTransition().From(bootingState).To(menuState).OnEvent(new UnityStateTransitionEvent(GameEvents.BootingFinished));
+            graphConstructor.AddTransition().From(bootingState).To(menuState).OnEvent(GameEvents.BootingFinished);
             
             graphConstructor.AddTransition().From(menuState).To(playingState).OnEvent(GameEvents.PlayGame);
             
