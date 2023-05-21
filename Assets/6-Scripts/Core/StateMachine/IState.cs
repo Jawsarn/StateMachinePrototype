@@ -1,9 +1,18 @@
 
 namespace Core.StateMachine
 {
-    public interface IState
+    public interface IExitableState
+    {
+        void Exit();
+    }
+
+    public interface IState : IExitableState
     {
         void Enter();
-        void Exit();
+    }
+    
+    public interface IState<T> : IExitableState
+    {
+        void Enter(T data);
     }
 }

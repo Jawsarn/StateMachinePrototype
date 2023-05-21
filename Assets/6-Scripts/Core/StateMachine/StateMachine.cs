@@ -5,9 +5,9 @@ namespace Core.StateMachine
 {
     public class StateMachine
     {
-        protected StateNode currentStateNode;
+        protected IExitableStateNode currentStateNode;
         protected StateNode initialStateNode;
-        private List<StateTransition> anyStateTransitions = new List<StateTransition>();
+        private List<IStateTransition> anyStateTransitions = new List<IStateTransition>();
 
         public void StartStateMachine()
         {
@@ -43,15 +43,22 @@ namespace Core.StateMachine
         {
             currentStateNode?.Exit();
             currentStateNode = newState;
-            currentStateNode?.Enter();
+            newState?.Enter();
         }
         
+        public void TransitionToState<T>(StateNode<T> newState, T data)
+        {
+            currentStateNode?.Exit();
+            currentStateNode = newState;
+            newState?.Enter(data);
+        }
+
         public void SetInitialState(StateNode initialState)
         {
             this.initialStateNode = initialState;
         }
 
-        public void AddAnyStateTransition(StateTransition newTransition)
+        public void AddAnyStateTransition(IStateTransition newTransition)
         {
             anyStateTransitions.Add(newTransition);
         }

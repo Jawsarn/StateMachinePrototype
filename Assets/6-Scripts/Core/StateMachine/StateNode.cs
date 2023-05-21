@@ -3,9 +3,14 @@ using UnityEngine;
 
 namespace Core.StateMachine
 {
-    public abstract class StateNode
+    public interface IExitableStateNode
     {
-        private List<StateTransition> transitions = new List<StateTransition>();
+        public void Exit();
+    }
+    
+    public abstract class StateNode : IExitableStateNode
+    {
+        private List<IStateTransition> transitions = new List<IStateTransition>();
         protected IState state;
 
         protected StateNode(IState state)
@@ -13,7 +18,7 @@ namespace Core.StateMachine
             this.state = state;
         }
         
-        public void AddTransition(StateTransition stateTransition)
+        public void AddTransition(IStateTransition stateTransition)
         {
             transitions.Add(stateTransition);
         }
@@ -23,6 +28,51 @@ namespace Core.StateMachine
             Debug.Log("Entering state:" + state);
             EnableTransitions();
             state.Enter();
+        }
+        
+        private void EnableTransitions()
+        {
+            foreach (var transition in transitions)
+            {
+                transition.Enable();
+            }
+        }
+        
+        public virtual void Exit()
+        {
+            DisableTransitions();
+            state.Exit();
+        }
+        
+        private void DisableTransitions()
+        {
+            foreach (var transition in transitions)
+            {
+                transition.Disable();
+            }
+        }
+    }
+    
+    public abstract class StateNode<T> : IExitableStateNode
+    {
+        private List<IStateTransition> transitions = new List<IStateTransition>();
+        protected IState<T> state;
+
+        protected StateNode(IState<T> state)
+        {
+            this.state = state;
+        }
+        
+        public void AddTransition(IStateTransition stateTransition)
+        {
+            transitions.Add(stateTransition);
+        }
+        
+        public virtual void Enter(T data)
+        {
+            Debug.Log("Entering state:" + state);
+            EnableTransitions();
+            state.Enter(data);
         }
         
         private void EnableTransitions()

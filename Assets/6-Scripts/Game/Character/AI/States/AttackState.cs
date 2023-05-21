@@ -1,9 +1,10 @@
 using Core.Factory;
 using Core.StateMachine;
+using UnityEngine;
 
 namespace Game.Character.AI
 {
-    public class AttackState : IState, IFactoryItemWithParams<AICharacterEvents, AICharacterData>
+    public class AttackState : IState<GameObject>, IFactoryItemWithParams<AICharacterEvents, AICharacterData>
     {
         private AICharacterEvents AICharacterEvents;
         private AICharacterData AICharacterData;
@@ -14,7 +15,7 @@ namespace Game.Character.AI
             this.AICharacterData = AICharacterData;
         }
 
-        public void Enter()
+        public void Enter(GameObject gameObject)
         {
             
         }

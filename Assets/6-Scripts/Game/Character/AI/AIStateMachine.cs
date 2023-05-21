@@ -16,8 +16,8 @@ namespace Game.Character.AI
     
     public class AICharacterEvents
     {
-        public UnityEvent foundEnemy = new ();
-        public UnityEvent inRangeOfEnemy = new ();
+        public UnityEvent<GameObject> foundEnemy = new ();
+        public UnityEvent<GameObject> inRangeOfEnemy = new ();
         public UnityEvent lostTrackOfEnemy = new ();
     }
 
@@ -45,15 +45,15 @@ namespace Game.Character.AI
             var graphConstructor = new StateMachineGraphConstructor(stateMachine);
 
             var idleState = new PersistentStateNode(new IdleState(AICharacterEvents, this));
-            var followState = new FactoryStateNode<FollowState>(new BasicFactory<FollowState, AICharacterEvents, AICharacterData>(AICharacterEvents, AICharacterData));
-            var attackState = new FactoryStateNode<AttackState>(new BasicFactory<AttackState, AICharacterEvents, AICharacterData>(AICharacterEvents, AICharacterData));
+            var followState = new FactoryStateNode<FollowState, GameObject>(new BasicFactory<FollowState, AICharacterEvents, AICharacterData>(AICharacterEvents, AICharacterData));
+            var attackState = new FactoryStateNode<AttackState, GameObject>(new BasicFactory<AttackState, AICharacterEvents, AICharacterData>(AICharacterEvents, AICharacterData));
             var deathState = new PersistentStateNode(new DeathState());
 
             graphConstructor.InitialState(idleState);
             
-            graphConstructor.AddTransition().From(idleState).To(followState).OnEvent(AICharacterEvents.foundEnemy);
+            graphConstructor.AddTransition<GameObject>().From(idleState).To(followState).OnEvent(AICharacterEvents.foundEnemy);
             
-            graphConstructor.AddTransition().From(followState).To(attackState).OnEvent(AICharacterEvents.inRangeOfEnemy);
+            graphConstructor.AddTransition<GameObject>().From(followState).To(attackState).OnEvent(AICharacterEvents.inRangeOfEnemy);
             graphConstructor.AddTransition().From(followState).To(idleState).OnEvent(AICharacterEvents.lostTrackOfEnemy);
             
             graphConstructor.AddTransition().From(attackState).To(idleState).OnEvent(AICharacterEvents.lostTrackOfEnemy);
@@ -89,12 +89,12 @@ namespace Game.Character.AI
 
             if (GUILayout.Button("Invoke foundEnemy"))
             {
-                behaviour.AICharacterEvents.foundEnemy.Invoke();
+                behaviour.AICharacterEvents.foundEnemy.Invoke(null);
             }
             
             if (GUILayout.Button("Invoke inRangeOfEnemy"))
             {
-                behaviour.AICharacterEvents.inRangeOfEnemy.Invoke();
+                behaviour.AICharacterEvents.inRangeOfEnemy.Invoke(null);
             }
             
             if (GUILayout.Button("Invoke lostTrackOfEnemy"))
