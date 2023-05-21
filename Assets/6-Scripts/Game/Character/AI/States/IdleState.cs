@@ -32,7 +32,7 @@ namespace Game.Character.AI
             while (true)
             {
                 yield return new WaitForSeconds(3);
-                AICharacterEvents.foundEnemy.Invoke(null);
+                AICharacterEvents.foundEnemy.Invoke(null, 1.0f);
             }
         }
     }

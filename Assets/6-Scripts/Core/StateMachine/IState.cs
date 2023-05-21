@@ -15,4 +15,9 @@ namespace Core.StateMachine
     {
         void Enter(T data);
     }
+    
+    public interface IState<T, D> : IExitableState
+    {
+        void Enter(T dataT, D dataD);
+    }
 }

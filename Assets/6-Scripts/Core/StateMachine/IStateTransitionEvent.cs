@@ -13,4 +13,10 @@ namespace Core.StateMachine
         void AddListener(UnityAction<T> transitionAction);
         void RemoveListener(UnityAction<T> transitionAction);
     }
+    
+    public interface IStateTransitionEvent<T, D>
+    {
+        void AddListener(UnityAction<T, D> transitionAction);
+        void RemoveListener(UnityAction<T, D> transitionAction);
+    }
 }

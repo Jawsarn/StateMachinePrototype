@@ -45,4 +45,26 @@ namespace Core.StateMachine
             state = null;
         }
     }
+    
+    public class FactoryStateNode<T, D, E> : StateNode<D, E> where T : IState<D, E>, new()
+    {
+        private IFactory<T> stateFactory;
+        
+        public FactoryStateNode(IFactory<T> stateFactory) : base(null)
+        {
+            this.stateFactory = stateFactory;
+        }
+
+        public override void Enter(D d, E e)
+        {
+            state = stateFactory.Create();
+            base.Enter(d, e);
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+            state = null;
+        }
+    }
 }

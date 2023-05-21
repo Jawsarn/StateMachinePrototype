@@ -52,6 +52,13 @@ namespace Core.StateMachine
             currentStateNode = newState;
             newState?.Enter(data);
         }
+        
+        public void TransitionToState<T, D>(StateNode<T,D> newState, T dataT, D dataD)
+        {
+            currentStateNode?.Exit();
+            currentStateNode = newState;
+            newState?.Enter(dataT, dataD);
+        }
 
         public void SetInitialState(StateNode initialState)
         {

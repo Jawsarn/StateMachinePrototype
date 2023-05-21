@@ -22,11 +22,11 @@ namespace Core.StateMachine
         }
     }
     
-    public class UnityStateTransitionEventW<T> : IStateTransitionEvent<T>
+    public class UnityStateTransitionEvent<T> : IStateTransitionEvent<T>
     {
         private UnityEvent<T> unityEvent;
 
-        public UnityStateTransitionEventW(UnityEvent<T> unityEvent)
+        public UnityStateTransitionEvent(UnityEvent<T> unityEvent)
         {
             this.unityEvent = unityEvent;
         }
@@ -41,6 +41,26 @@ namespace Core.StateMachine
             unityEvent.RemoveListener(transitionAction);
         }
     }
+    
+    public class UnityStateTransitionEvent<T, D> : IStateTransitionEvent<T, D>
+    {
+        private UnityEvent<T, D> unityEvent;
+
+        public UnityStateTransitionEvent(UnityEvent<T, D> unityEvent)
+        {
+            this.unityEvent = unityEvent;
+        }
+        
+        public void AddListener(UnityAction<T, D> transitionAction)
+        {
+            unityEvent.AddListener(transitionAction);
+        }
+
+        public void RemoveListener(UnityAction<T, D> transitionAction)
+        {
+            unityEvent.RemoveListener(transitionAction);
+        }
+    }
 
     public static class UnityStateTransitionEvent_StateTransitionExtension
     {
@@ -51,7 +71,12 @@ namespace Core.StateMachine
         
         public static StateTransition<T> OnEvent<T>(this StateTransition<T> stateTransition, UnityEvent<T> unityEvent)
         {
-            return stateTransition.OnEvent(new UnityStateTransitionEventW<T>(unityEvent));
+            return stateTransition.OnEvent(new UnityStateTransitionEvent<T>(unityEvent));
+        }
+        
+        public static StateTransition<T, D> OnEvent<T, D>(this StateTransition<T, D> stateTransition, UnityEvent<T, D> unityEvent)
+        {
+            return stateTransition.OnEvent(new UnityStateTransitionEvent<T, D>(unityEvent));
         }
     }
 }

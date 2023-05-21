@@ -23,6 +23,11 @@ namespace Core.StateMachine
         {
             return new StateTransition<T>(stateMachine);
         }
+        
+        public StateTransition<T, D> AddTransition<T, D>()
+        {
+            return new StateTransition<T, D>(stateMachine);
+        }
     }
 }
 

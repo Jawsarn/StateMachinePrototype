@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.Character.AI
 {
-    public class FollowState : IState<GameObject>, IFactoryItemWithParams<AICharacterEvents, AICharacterData>
+    public class FollowState : IState<GameObject, float>, IFactoryItemWithParams<AICharacterEvents, AICharacterData>
     {
         private AICharacterEvents AICharacterEvents;
         private AICharacterData AICharacterData;
@@ -15,7 +15,7 @@ namespace Game.Character.AI
             this.AICharacterData = AICharacterData;
         }
 
-        public void Enter(GameObject gameObject)
+        public void Enter(GameObject gameObject, float value)
         {
             
         }
