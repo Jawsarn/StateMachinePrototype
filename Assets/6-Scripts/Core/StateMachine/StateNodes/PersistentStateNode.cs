@@ -8,5 +8,21 @@ namespace Core.StateMachine
             
         }
     }
+    
+    public class PersistentStateNode<T> : StateNode<T>
+    {
+        public PersistentStateNode(IState<T> state) : base(state)
+        {
+            
+        }
+    }
+    
+    public class PersistentStateNode<T, D> : StateNode<T, D>
+    {
+        public PersistentStateNode(IState<T, D> state) : base(state)
+        {
+            
+        }
+    }
 }
 

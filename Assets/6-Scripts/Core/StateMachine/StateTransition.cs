@@ -25,24 +25,12 @@ namespace Core.StateMachine
             return this;
         }
         
-        public StateTransition From(StateNode state)
+        public StateTransition From(IExitableStateNodeWithTransition state)
         {
             state.AddTransition(this);
             return this;
         }
-        
-        public StateTransition From<T>(StateNode<T> state)
-        {
-            state.AddTransition(this);
-            return this;
-        }
-        
-        public StateTransition From<T ,D>(StateNode<T, D> state)
-        {
-            state.AddTransition(this);
-            return this;
-        }
-        
+
         public StateTransition FromAny()
         {
             stateMachine.AddAnyStateTransition(this);
@@ -89,19 +77,8 @@ namespace Core.StateMachine
             this.transitionEvent = transitionEvent;
             return this;
         }
-        public StateTransition<T> From(StateNode state)
-        {
-            state.AddTransition(this);
-            return this;
-        }
         
-        public StateTransition<T> From<E>(StateNode<E> state)
-        {
-            state.AddTransition(this);
-            return this;
-        }
-        
-        public StateTransition<T> From<E, F>(StateNode<E, F> state)
+        public StateTransition<T> From(IExitableStateNodeWithTransition state)
         {
             state.AddTransition(this);
             return this;
@@ -153,13 +130,7 @@ namespace Core.StateMachine
             this.transitionEvent = transitionEvent;
             return this;
         }
-        public StateTransition<T, D> From(StateNode state)
-        {
-            state.AddTransition(this);
-            return this;
-        }
-        
-        public StateTransition<T, D> From(StateNode<T> state)
+        public StateTransition<T, D> From(IExitableStateNodeWithTransition state)
         {
             state.AddTransition(this);
             return this;

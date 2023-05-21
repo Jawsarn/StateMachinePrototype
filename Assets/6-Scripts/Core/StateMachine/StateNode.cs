@@ -7,8 +7,13 @@ namespace Core.StateMachine
     {
         public void Exit();
     }
+
+    public interface IExitableStateNodeWithTransition : IExitableStateNode
+    {
+        public void AddTransition(IStateTransition stateTransition);
+    }
     
-    public abstract class StateNode : IExitableStateNode
+    public abstract class StateNode : IExitableStateNodeWithTransition
     {
         private List<IStateTransition> transitions = new List<IStateTransition>();
         protected IState state;
@@ -53,7 +58,7 @@ namespace Core.StateMachine
         }
     }
     
-    public abstract class StateNode<T> : IExitableStateNode
+    public abstract class StateNode<T> : IExitableStateNodeWithTransition
     {
         private List<IStateTransition> transitions = new List<IStateTransition>();
         protected IState<T> state;
@@ -98,7 +103,7 @@ namespace Core.StateMachine
         }
     }
     
-    public abstract class StateNode<T, D> : IExitableStateNode
+    public abstract class StateNode<T, D> : IExitableStateNodeWithTransition
     {
         private List<IStateTransition> transitions = new List<IStateTransition>();
         protected IState<T, D> state;
