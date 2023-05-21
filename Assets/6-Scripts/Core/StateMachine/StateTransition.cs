@@ -25,7 +25,7 @@ namespace Core.StateMachine
             return this;
         }
         
-        public StateTransition From(IExitableStateNodeWithTransition state)
+        public StateTransition From(IStateNode state)
         {
             state.AddTransition(this);
             return this;
@@ -78,7 +78,7 @@ namespace Core.StateMachine
             return this;
         }
         
-        public StateTransition<T> From(IExitableStateNodeWithTransition state)
+        public StateTransition<T> From(IStateNode state)
         {
             state.AddTransition(this);
             return this;
@@ -130,7 +130,7 @@ namespace Core.StateMachine
             this.transitionEvent = transitionEvent;
             return this;
         }
-        public StateTransition<T, D> From(IExitableStateNodeWithTransition state)
+        public StateTransition<T, D> From(IStateNode state)
         {
             state.AddTransition(this);
             return this;

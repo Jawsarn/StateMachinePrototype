@@ -3,17 +3,13 @@ using UnityEngine;
 
 namespace Core.StateMachine
 {
-    public interface IExitableStateNode
+    public interface IStateNode
     {
         public void Exit();
-    }
-
-    public interface IExitableStateNodeWithTransition : IExitableStateNode
-    {
         public void AddTransition(IStateTransition stateTransition);
     }
     
-    public abstract class StateNode : IExitableStateNodeWithTransition
+    public abstract class StateNode : IStateNode
     {
         private List<IStateTransition> transitions = new List<IStateTransition>();
         protected IState state;
@@ -58,7 +54,7 @@ namespace Core.StateMachine
         }
     }
     
-    public abstract class StateNode<T> : IExitableStateNodeWithTransition
+    public abstract class StateNode<T> : IStateNode
     {
         private List<IStateTransition> transitions = new List<IStateTransition>();
         protected IState<T> state;
@@ -103,7 +99,7 @@ namespace Core.StateMachine
         }
     }
     
-    public abstract class StateNode<T, D> : IExitableStateNodeWithTransition
+    public abstract class StateNode<T, D> : IStateNode
     {
         private List<IStateTransition> transitions = new List<IStateTransition>();
         protected IState<T, D> state;

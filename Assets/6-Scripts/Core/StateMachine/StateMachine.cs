@@ -5,7 +5,7 @@ namespace Core.StateMachine
 {
     public class StateMachine
     {
-        protected IExitableStateNode currentStateNode;
+        protected IStateNode currentStateNode;
         protected StateNode initialStateNode;
         private List<IStateTransition> anyStateTransitions = new List<IStateTransition>();
 
