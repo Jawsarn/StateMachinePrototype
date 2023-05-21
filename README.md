@@ -33,3 +33,5 @@ graphConstructor.AddTransition<MyEnterParameter>().From(myStateB).To(myStateA).O
 ```
 Note above that the above event uses extension method to convert into the provided `UnityStateTransitionEvent` type for ease of use.
 For other event wrappers implement the `IStateTransitionEvent`.
+
+Finally call `StateMachine.StartStateMachine()` and `StateMachine.StopStateMachine()` att appropriate times.
